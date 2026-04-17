@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift Tech Stack — FZCO</title>
+    <meta name="description" content="Swift Tech Stack FZCO — A technology holding company based in Dubai, home to ShipSwift and Hotels.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg: #0a0a0f;
+            --color-surface: #12121a;
+            --color-border: rgba(255, 255, 255, 0.06);
+            --color-text: #e8e8ed;
+            --color-text-muted: #8a8a9a;
+            --color-accent: #6366f1;
+            --color-accent-glow: rgba(99, 102, 241, 0.15);
+            --color-shipswift: #f97316;
+            --color-hotels: #06b6d4;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Ambient background glow */
+        .bg-glow {
+            position: fixed;
+            top: -40%;
+            left: -20%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(ellipse, rgba(99, 102, 241, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-glow-2 {
+            position: fixed;
+            bottom: -40%;
+            right: -20%;
+            width: 70%;
+            height: 70%;
+            background: radial-gradient(ellipse, rgba(6, 182, 212, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.25rem 2rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(10, 10, 15, 0.8);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--color-text);
+        }
+
+        .logo span {
+            color: var(--color-accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 6rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: 999px;
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .hero-badge .dot {
+            width: 6px;
+            height: 6px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--color-accent), #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--color-text-muted);
+            max-width: 560px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            background: var(--color-accent);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px var(--color-accent-glow);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 50px rgba(99, 102, 241, 0.25);
+        }
+
+        .hero-cta svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-cta:hover svg {
+            transform: translateX(3px);
+        }
+
+        /* Section shared */
+        section {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--color-text-muted);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        /* Brands / Portfolio */
+        .brands {
+            border-top: 1px solid var(--color-border);
+        }
+
+        .brands-header {
+            margin-bottom: 3.5rem;
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .brand-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--card-accent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .brand-card:hover {
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .brand-card:hover::before {
+            opacity: 1;
+        }
+
+        .brand-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .brand-card--shipswift .brand-icon {
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+        }
+
+        .brand-card--hotels .brand-icon {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .brand-card h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        .brand-card p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .brand-tag {
+            display: inline-block;
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        .brand-card--shipswift .brand-tag {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--color-shipswift);
+            border: 1px solid rgba(249, 115, 22, 0.15);
+        }
+
+        .brand-card--hotels .brand-tag {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--color-hotels);
+            border: 1px solid rgba(6, 182, 212, 0.15);
+        }
+
+        /* About Section */
+        .about {
+            border-top: 1px solid var(--color-border);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-top: 3.5rem;
+        }
+
+        .about-text p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .stat-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            letter-spacing: -0.03em;
+        }
+
+        .stat-card .label {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-top: 0.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Contact Section */
+        .contact {
+            border-top: 1px solid var(--color-border);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 18px;
+            height: 18px;
+            color: var(--color-accent);
+        }
+
+        .contact-item h4 {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.35rem;
+        }
+
+        .contact-item p, .contact-item a {
+            font-size: 0.95rem;
+            color: var(--color-text);
+            text-decoration: none;
+            line-height: 1.6;
+        }
+
+        .contact-item a:hover {
+            color: var(--color-accent);
+        }
+
+        .contact-message {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-message h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-message p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .contact-message .cta-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            background: transparent;
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-message .cta-email:hover {
+            border-color: var(--color-accent);
+            background: var(--color-accent-glow);
+            color: var(--color-accent);
+        }
+
+        .contact-message .cta-email svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--color-border);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer p {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        .footer-legal {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            opacity: 0.6;
+        }
+
+        /* Divider line decoration */
+        .divider-glow {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--color-accent), transparent);
+            opacity: 0.15;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.25rem;
+            }
+
+            .nav-links {
+                gap: 1.25rem;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+
+            .hero {
+                padding: 7rem 1.5rem 4rem;
+            }
+
+            .section-container {
+                padding: 4rem 1.5rem;
+            }
+
+            .brands-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .brand-card {
+                padding: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+    <div class="bg-glow-2"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-inner">
+            <div class="logo">Swift Tech Stack<span>.</span></div>
+            <ul class="nav-links">
+                <li><a href="#brands">Brands</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content fade-in">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Registered in Dubai, UAE
+            </div>
+            <h1>
+                Building the future,<br>
+                <span class="gradient-text">one brand at a time.</span>
+            </h1>
+            <p>
+                Swift Tech Stack is a technology holding company powering innovative brands across logistics and hospitality.
+            </p>
+            <a href="#brands" class="hero-cta">
+                Explore Our Brands
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Brands -->
+    <section class="brands" id="brands">
+        <div class="section-container">
+            <div class="brands-header fade-in">
+                <p class="section-label">Portfolio</p>
+                <h2 class="section-title">Our Brands</h2>
+                <p class="section-subtitle">
+                    We build and operate technology-driven companies solving real-world problems.
+                </p>
+            </div>
+            <div class="brands-grid">
+                <div class="brand-card brand-card--shipswift fade-in" style="--card-accent: var(--color-shipswift)">
+                    <div class="brand-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#f97316"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" /></svg>
+                    </div>
+                    <h3>ShipSwift</h3>
+                    <p>
+                        A next-generation logistics and shipping platform designed to streamline delivery operations with speed and reliability.
+                    </p>
+                    <span class="brand-tag">Logistics &amp; Shipping</span>
+                </div>
+                <div class="brand-card brand-card--hotels fade-in" style="--card-accent: var(--color-hotels)">
+                    <div class="brand-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#06b6d4"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5M10.5 21H3m13.5-18v1.5M16.5 6V3m-3 3V3m-3 3V3M3 21V9.75A2.25 2.25 0 0 1 5.25 7.5h4.5A2.25 2.25 0 0 1 12 9.75V21M3 21h18" /></svg>
+                    </div>
+                    <h3>Hotels</h3>
+                    <p>
+                        A modern hospitality technology brand reimagining the guest experience through smart booking and management solutions.
+                    </p>
+                    <span class="brand-tag">Hospitality &amp; Travel</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider-glow"></div>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="section-container">
+            <div class="fade-in">
+                <p class="section-label">About Us</p>
+                <h2 class="section-title">Who We Are</h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-text fade-in">
+                    <p>
+                        Swift Tech Stack FZCO is a technology holding company registered in the Dubai Silicon Oasis free zone, United Arab Emirates.
+                    </p>
+                    <p>
+                        We build, operate, and invest in technology brands that solve meaningful problems across logistics and hospitality. Our mission is to create scalable, impactful businesses powered by modern technology and exceptional teams.
+                    </p>
+                    <p>
+                        Based in one of the world's leading technology hubs, we leverage Dubai's strategic position to serve customers and partners globally.
+                    </p>
+                </div>
+                <div class="stats-grid fade-in">
+                    <div class="stat-card">
+                        <div class="number">2</div>
+                        <div class="label">Active Brands</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">UAE</div>
+                        <div class="label">Headquartered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">DSO</div>
+                        <div class="label">Free Zone</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">FZCO</div>
+                        <div class="label">Entity Type</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider-glow"></div>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="section-container">
+            <div class="fade-in">
+                <p class="section-label">Get In Touch</p>
+                <h2 class="section-title">Contact Us</h2>
+                <p class="section-subtitle">Have a question or want to work with us? We'd love to hear from you.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:hello@swifttechstack.com">hello@swifttechstack.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>
+                        </div>
+                        <div>
+                            <h4>Registered Address</h4>
+                            <p>
+                                Swift Tech Stack — FZCO<br>
+                                Dubai Silicon Oasis, DDP<br>
+                                Building A1/A2<br>
+                                Dubai, United Arab Emirates
+                            </p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5a17.92 17.92 0 0 1-8.716-2.247m0 0A8.966 8.966 0 0 1 3 12c0-1.97.633-3.794 1.708-5.282" /></svg>
+                        </div>
+                        <div>
+                            <h4>Jurisdiction</h4>
+                            <p>Dubai Silicon Oasis Free Zone</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-message fade-in">
+                    <h3>Let's build something together</h3>
+                    <p>
+                        Whether you're interested in partnerships, investment opportunities, or simply want to learn more about our brands — drop us a line.
+                    </p>
+                    <a href="mailto:hello@swifttechstack.com" class="cta-email">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" /></svg>
+                        hello@swifttechstack.com
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <p>&copy; 2025 Swift Tech Stack FZCO. All rights reserved.</p>
+            <p class="footer-legal">Registered in Dubai Silicon Oasis, UAE</p>
+        </div>
+    </footer>
+
+    <!-- Scroll reveal -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        });
+    </script>
+
+</body>
+</html>
