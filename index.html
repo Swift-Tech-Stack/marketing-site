@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swift Tech Stack — FZCO</title>
-    <meta name="description" content="Swift Tech Stack FZCO — A technology holding company based in Dubai, home to ShipSwift and Hotels.">
+    <meta name="description" content="Swift Tech Stack FZCO — A technology holding company based in Dubai, home to ShipSwift, Hotels, Offly and StreamPilot.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -25,6 +25,8 @@
             --color-accent-glow: rgba(99, 102, 241, 0.15);
             --color-shipswift: #f97316;
             --color-hotels: #06b6d4;
+            --color-offly: #10b981;
+            --color-streampilot: #8b5cf6;
         }
 
         html {
@@ -315,6 +317,16 @@
             border: 1px solid rgba(6, 182, 212, 0.2);
         }
 
+        .brand-card--offly .brand-icon {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .brand-card--streampilot .brand-icon {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
         .brand-card h3 {
             font-size: 1.35rem;
             font-weight: 600;
@@ -348,6 +360,18 @@
             background: rgba(6, 182, 212, 0.1);
             color: var(--color-hotels);
             border: 1px solid rgba(6, 182, 212, 0.15);
+        }
+
+        .brand-card--offly .brand-tag {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-offly);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        .brand-card--streampilot .brand-tag {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--color-streampilot);
+            border: 1px solid rgba(139, 92, 246, 0.15);
         }
 
         /* About Section */
@@ -649,7 +673,7 @@
                 <span class="gradient-text">one brand at a time.</span>
             </h1>
             <p>
-                Swift Tech Stack is a technology holding company powering innovative brands across logistics and hospitality.
+                Swift Tech Stack is a technology holding company powering innovative brands across logistics, hospitality, SaaS and networking.
             </p>
             <a href="#brands" class="hero-cta">
                 Explore Our Brands
@@ -689,6 +713,26 @@
                     </p>
                     <span class="brand-tag">Hospitality &amp; Travel</span>
                 </div>
+                <div class="brand-card brand-card--offly fade-in" style="--card-accent: var(--color-offly)">
+                    <div class="brand-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#10b981"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" /></svg>
+                    </div>
+                    <h3>Offly</h3>
+                    <p>
+                        A modern leave management SaaS for small to medium business, simplifying time-off tracking and team availability.
+                    </p>
+                    <span class="brand-tag">HR &amp; SaaS</span>
+                </div>
+                <div class="brand-card brand-card--streampilot fade-in" style="--card-accent: var(--color-streampilot)">
+                    <div class="brand-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#8b5cf6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5a17.92 17.92 0 0 1-8.716-2.247m0 0A8.966 8.966 0 0 1 3 12c0-1.97.633-3.794 1.708-5.282" /></svg>
+                    </div>
+                    <h3>StreamPilot</h3>
+                    <p>
+                        SmartDNS made simple, unlocking content globally. A fast, reliable service for seamless access to geo-restricted media.
+                    </p>
+                    <span class="brand-tag">Networking &amp; DNS</span>
+                </div>
             </div>
         </div>
     </section>
@@ -708,7 +752,7 @@
                         Swift Tech Stack FZCO is a technology holding company registered in the Dubai Silicon Oasis free zone, United Arab Emirates.
                     </p>
                     <p>
-                        We build, operate, and invest in technology brands that solve meaningful problems across logistics and hospitality. Our mission is to create scalable, impactful businesses powered by modern technology and exceptional teams.
+                        We build, operate, and invest in technology brands that solve meaningful problems across logistics, hospitality, HR tech and networking. Our mission is to create scalable, impactful businesses powered by modern technology and exceptional teams.
                     </p>
                     <p>
                         Based in one of the world's leading technology hubs, we leverage Dubai's strategic position to serve customers and partners globally.
@@ -716,7 +760,7 @@
                 </div>
                 <div class="stats-grid fade-in">
                     <div class="stat-card">
-                        <div class="number">2</div>
+                        <div class="number">4</div>
                         <div class="label">Active Brands</div>
                     </div>
                     <div class="stat-card">
